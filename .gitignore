@@ -343,3 +343,5 @@ hannahbot_storage.json
 # dotenv environment variables file
 .env
 .env.test
+ideas.txt
+error.txt

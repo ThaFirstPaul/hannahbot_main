@@ -6,8 +6,8 @@ var parent = require.main.exports;
 module.exports = {
     name: "hhb command",
     version_added: "2.0",
-    commands_regex: "otherregex",
-    supported_platforms: ["twitch", "discord", "telegram", "web"],
+    commands_regex: "(reminders?|rem)",
+    supported_platforms: ["twitch"],
     invocation: async (platform, channel, tags, message) => {
 
         switch (platform) {
@@ -32,8 +32,10 @@ module.exports = {
             default:
                 break;
         }
-
-
-
     }
+}
+
+
+function calculate_command(message) {
+    
 }

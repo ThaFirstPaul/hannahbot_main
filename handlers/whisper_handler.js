@@ -129,63 +129,6 @@ module.exports = {
                 `[INFO] @󠀀${tags.username}, that command was not found. For a list of commands, visit: hannahbot.xyz/#commands `)
             
         });
-
-        // On recieving a Twitch whisper:
-        client.on('whisper', (from, tags, message, self) => {
-            var message = message
-            // if debug is enabled
-            if (parent.debug.usermessages) console.log(`@${tags.username} => Whisper: ${message}`)
-
-            
-
-            if ((/^(\!hannahbot|\!?hh?b)(d|_dev)[\s]*$/).test(message.toLowerCase())) {
-                parent.debug ? console.log(`Invoking "im hhb" message: (hhb)`) : ""
-                parent.commands.hhb.invocation("whisper", from, tags, message, client);
-                return;
-            }
-
-            var commands_obj = Object.entries(parent.commands)
-            for (let index = 0; index < commands_obj.length; index++) {
-                const command_module = commands_obj[index][1];
-                const command_name = commands_obj[index][0];
-                
-                parent.debug ? console.log(`Testing for command regex: (${command_module.commands_regex})`) : ""
-
-                if (new RegExp(`^((\!hannahbot|\!?hh?b)(d|_dev)? )?(${command_module.commands_regex})($| )`).test(message.toLowerCase())) {
-                    if (!(/^(\!hannahbot|\!?hh?b)(d|_dev)[\s]+/).test(message.toLowerCase())){
-                        message = "!hhb "+message
-                    }
-                    
-                    parent.debug ? console.log(`invoking command: (${command_name})`) : ""
-
-                    if(!parent.commands[command_name].supported_platforms.includes("twitch_whisper")){
-                        //parent.functions.twitch_clientsay(from, `[INFO] @󠀀${tags.username}, that command is not available on Twitch. `)
-                        return
-                    }
-
-                    try {
-                        parent.commands[command_name].invocation("twitch_whisper", from, tags, message);
-                    } catch (error) {
-                        //parent.functions.twitch_clientsay(from, `[INFO] @󠀀${tags.username}, that command could not be executed at this time. Sorry. `)
-                        console.log(`[ERROR] could not execute command ${command_name}: ${error}`)
-                    }
-                    
-                    return;
-                }
-                
-            }
-
-            //
-
-            // custom commands
-
-
-            // command not found
-            //parent.functions.clientsay()
-            // parent.functions.twitch_clientsay(channel,
-            //     `[INFO] @󠀀${tags.username}, that command was not found. For a list of commands, visit: hannahbot.xyz/#commands `)
-            
-        });
         return;
 
     }

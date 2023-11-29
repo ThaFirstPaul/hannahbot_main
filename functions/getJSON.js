@@ -8,10 +8,10 @@ module.exports = {
 	name: "getJSON",
 	version_added: "2.0",
 	module_type: "single",
-	invocation: (url, post_vars, callback) => {
+	invocation: (url, post_vars, callback, get_post='POST', type='application/json') => {
 		var xhr = new XMLHttpRequest();
-		xhr.open('POST', url, true);
-		xhr.setRequestHeader('Content-Type', 'application/json');
+		xhr.open(get_post, url, true);
+		xhr.setRequestHeader('Content-Type', type);
 		xhr.responseType = 'json';
 		xhr.onload = function () {
 			var status = xhr.status;

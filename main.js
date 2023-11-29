@@ -62,15 +62,25 @@ module.exports = {
 // import all commands
 fs.readdirSync('./commands').forEach(function (file) {
     try {
+        if(!hannahbot_storage.commands.hasOwnProperty(file.split(".")[0])){
+            hannahbot_storage.commands[file.split(".")[0]] = {"enabled":true}
+        } 
+        // checks if the module is disabled
+        if (hannahbot_storage.commands[file.split(".")[0]] === false) return
+
         const module_ = require(`./commands/${file}`);
         commands[file.split(".")[0]] = module_;
+        
         if (debug) { console.log(`Imported command: ${file}${" ".repeat(40 - file.toString().length)}  version:${module_.version_added}`) }
     } catch (err) {
         console.log(`Failed to import command ${file}: ${err}`)
     }
 })
 console.log(`Done importing commands`);
-if (debug) { console.log(`All active commands: ${Object.keys(commands)}\n`) }
+if (debug) { 
+    console.log(`All active commands: `)
+    console.log(commands)
+}
 
 
 // import all internally needed functions
@@ -104,11 +114,22 @@ fs.readdirSync('./handlers').forEach(function (file) {
 console.log(`Done importing handlers.`);
 if (debug) { console.log(`All active handlers: ${Object.keys(handlers)}\n`) }
 
+// save hannahbot_storage
+functions.save_hannahbot_storage()
 
 // Start the handlers for twitch, discord, telegram, and web
 
-// console.log()
-handlers.twitch_handler.start()
+try {
+    handlers.twitch_handler.start()
+} catch (error) {
+    console.log(`[ERROR] Failed to start twitch handler: ${error}`)
+}
+
+try {
+    handlers.discord_handler.start()
+} catch (error) {
+    console.log(`[ERROR] Failed to start discord handler:${error.code} ${error}`)
+}
 // TODO: start other handlers
 
 

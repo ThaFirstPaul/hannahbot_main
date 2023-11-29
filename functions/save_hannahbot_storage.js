@@ -11,7 +11,7 @@ module.exports = {
     version_added: "2.0",
 	module_type: "single",
     invocation: () => {
-        if (fs.writeFile('./hannahbot_storage.json',
+        if (fs.writeFileSync('./hannahbot_storage.json',
             JSON.stringify(parent.hannahbot_storage), 'utf-8')) {
             return true
         } else {

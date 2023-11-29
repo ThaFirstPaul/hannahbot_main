@@ -13,7 +13,7 @@ function unload_module(module) {
         if (parent.debug) { console.log(`Unloaded command: ${module}`) }
         return true
     } catch (err) {
-        console.log(`Failed to reload the command "${module}": ${err}`)
+        console.log(`Failed to reload the command "${module}": ${err}\n${err.stack}`)
         return false;
     }
 }
@@ -27,7 +27,7 @@ function load_module(module) {
         if (parent.debug) { console.log(`Imported command: ${module}${" ".repeat(40 - module.toString().length)}  version:${module_.version_added}`) }
         return true
     } catch (err) {
-        console.log(`Failed to reload the command "${module}": ${err}`)
+        console.log(`Failed to reload the command "${module}": ${err}\n${err.stack}`)
         return false;
     }
 }
@@ -35,7 +35,8 @@ function load_module(module) {
 module.exports = {
     name: "hhb modules",
     version_added: "2.0",
-    supported_platforms: ["twitch", "discord", "telegram", "web"],
+    commands_regex: "modules?",
+    supported_platforms: ["twitch"],
     invocation: async (platform, channel, tags, message) => {
         if (!parent.functions.hasPerm(channel, tags.username.toLowerCase(), "hhb.admin.reloadmodule", true)) { return; }
 
@@ -48,7 +49,7 @@ module.exports = {
                 }
 
                 if (/^(l|list|all)$/.test(command_args[2])) {
-                    parent.functions.twitch_clientsay(channel, `[ADMIN] @${tags.username}, active modules: ${Object.keys(parent.commands)}`)
+                    parent.functions.twitch_clientsay(channel, `[ADMIN] @${tags.username}, active modules: ${Object.keys(parent.commands).join(", ")}`)
                     return
                 }
 
@@ -83,7 +84,7 @@ module.exports = {
 
                     if (!Object.keys(parent.commands).includes(command_args[3].toLowerCase().trim())) {
                         load_module(command_args[3].toLowerCase().trim()) ?
-                            parent.functions.twitch_clientsay(channel, `[ADMIN] Loaded the module: ${command_args[3]} (v${parent.commands[module].version_added}), @${tags.username}`) :
+                            parent.functions.twitch_clientsay(channel, `[ADMIN] Loaded the module: ${command_args[3]} (v${parent.commands[command_args[3].toLowerCase()].version_added}), @${tags.username}`) :
                             parent.functions.twitch_clientsay(channel, `[ADMIN] Could not load the module: ${command_args[3]}, @${tags.username}`)
                     } else {
                         parent.functions.twitch_clientsay(channel, `[ADMIN] That module is already active @${tags.username}. Use \`${command_args[0]} reloadmodule {module_type}/{module_name}\` instead.`)

@@ -1,6 +1,5 @@
-// ./functions/proper_date.js
+// ./functions/twitch_clientsay.js
 // ========
-// returns a dhms time from a given ms
 
 parent = require.main.exports;
 
