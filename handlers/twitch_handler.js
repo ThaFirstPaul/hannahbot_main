@@ -69,9 +69,9 @@ module.exports = {
 
         
         parent.debug ? console.error(`Hannahbot listening to twitch messages in channels: ${parent.hannahbot_storage["channels"]}`) : ""
-        client.on('message', (channel, tags, message, self) => {
+        client.on('chat', (channel, tags, message, self) => {
             // if debug is enabled
-            if (parent.debug.usermessages) console.log(`${channel} @${tags.username}: ${message}`)
+            if (parent.debug.usermessages) console.log(`[TW MSG] ${channel} @${tags.username}: ${message}`)
 
             try {
                 // send the recieved message to the ping handler
@@ -82,10 +82,13 @@ module.exports = {
                 //TODO: ping paul errors
             }
 
+            // ignore own messages
+            if (self) return;
+            
             // cancel non hannahbot commands:
-            if (!(/^(\!hannahbot|\!?hh?b)(d|_dev)( |$)/).test(message.toLowerCase())) return;
+            if (!(/^(\!hannahbot|\!?hh?b)( |$)/).test(message.toLowerCase())) return;
 
-            if ((/^(\!hannahbot|\!?hh?b)(d|_dev)[\s]*$/).test(message.toLowerCase())) {
+            if ((/^(\!hannahbot|\!?hh?b)[\s]*$/).test(message.toLowerCase())) {
                 parent.debug ? console.log(`Invoking "im hhb" message: (hhb)`) : ""
                 parent.commands.hhb.invocation("twitch", channel, tags, message, client);
                 return;
@@ -98,7 +101,7 @@ module.exports = {
                 
                 parent.debug ? console.log(`Testing for command regex: (${command_module.commands_regex})`) : ""
 
-                if (new RegExp(`^(\!hannahbot|\!?hh?b)(d|_dev) (${command_module.commands_regex})($| )`).test(message.toLowerCase())) {
+                if (new RegExp(`^(\!hannahbot|\!?hh?b) (${command_module.commands_regex})($| )`).test(message.toLowerCase())) {
                     parent.debug ? console.log(`invoking command: (${command_name})`) : ""
 
                     if(!parent.commands[command_name].supported_platforms.includes("twitch")){
@@ -126,7 +129,7 @@ module.exports = {
             // command not found
             //parent.functions.clientsay()
             parent.functions.twitch_clientsay(channel,
-                `[INFO] @󠀀${tags.username}, that command was not found. For a list of commands, visit: hannahbot.xyz/#commands `)
+                `[INFO] @󠀀${tags.username}, that command was not found. For a list of commands, visit: tinyurl.com/545uycyw `)
             
         });
 
@@ -134,11 +137,11 @@ module.exports = {
         client.on('whisper', (from, tags, message, self) => {
             var message = message
             // if debug is enabled
-            if (parent.debug.usermessages) console.log(`@${tags.username} => Whisper: ${message}`)
+            if (parent.debug.usermessages) console.log(`[TW /w] #${tags.username}: ${message}`)
 
             
 
-            if ((/^(\!hannahbot|\!?hh?b)(d|_dev)[\s]*$/).test(message.toLowerCase())) {
+            if ((/^(\!hannahbot|\!?hh?b)[\s]*$/).test(message.toLowerCase())) {
                 parent.debug ? console.log(`Invoking "im hhb" message: (hhb)`) : ""
                 parent.commands.hhb.invocation("whisper", from, tags, message, client);
                 return;
@@ -151,20 +154,21 @@ module.exports = {
                 
                 parent.debug ? console.log(`Testing for command regex: (${command_module.commands_regex})`) : ""
 
-                if (new RegExp(`^((\!hannahbot|\!?hh?b)(d|_dev)? )?(${command_module.commands_regex})($| )`).test(message.toLowerCase())) {
-                    if (!(/^(\!hannahbot|\!?hh?b)(d|_dev)[\s]+/).test(message.toLowerCase())){
-                        message = "!hhb "+message
+                if (new RegExp(`^((\!hannahbot|\!?hh?b)? )?(${command_module.commands_regex})($| )`).test(message.toLowerCase())) {
+                    if (!(/^(\!hannahbot|\!?hh?b)[\s]+/).test(message.toLowerCase())){
+                        message = "!hhb "+message;
                     }
                     
                     parent.debug ? console.log(`invoking command: (${command_name})`) : ""
 
-                    if(!parent.commands[command_name].supported_platforms.includes("twitch_whisper")){
-                        //parent.functions.twitch_clientsay(from, `[INFO] @󠀀${tags.username}, that command is not available on Twitch. `)
-                        return
+                    if(!parent.commands[command_name].supported_platforms.includes("whisper")){
+                        parent.functions.twitch_whisper(from, `[INFO] Sorry, that command is not available via whispers. `)
+                        console.log(`[WARN] command: (${command_name}) does not support twitch_whisper`)
+                        return;
                     }
 
                     try {
-                        parent.commands[command_name].invocation("twitch_whisper", from, tags, message);
+                        parent.commands[command_name].invocation("whisper", from, tags, message);
                     } catch (error) {
                         //parent.functions.twitch_clientsay(from, `[INFO] @󠀀${tags.username}, that command could not be executed at this time. Sorry. `)
                         console.log(`[ERROR] could not execute command ${command_name}: ${error}`)

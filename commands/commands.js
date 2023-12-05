@@ -14,12 +14,12 @@ module.exports = {
             case "twitch":
                 //if (!parent.functions.hasPerm(channel, tags.username.toLowerCase(), "hhb.commands.list", true)) { return; }
                
-                parent.functions.twitch_clientsay(channel, `[INFO] @󠀀${tags.username}, all commands can be seen at: hannahbot.xyz/#commands `);
+                parent.functions.twitch_clientsay(channel, `[INFO] @󠀀${tags.username}, all commands can be seen at: tinyurl.com/545uycyw `);
                 return
 
             case "discord":
                 //if (!parent.functions.hasPerm(channel, tags.author.id, "hhb.commands.list", true, "discord", tags)) { return; }
-                parent.functions.discord_clientsay(tags, `All commands can be seen at:\nhttps://hannahbot.xyz/#commands`, true);
+                parent.functions.discord_clientsay(tags, `All commands can be seen at:\nhttps://tinyurl.com/545uycyw`, true);
                 return
 
             case "telegram":

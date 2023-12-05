@@ -4,7 +4,7 @@
 var parent = require.main.exports;
 
 module.exports = {
-    name: "hhb changecolor",
+    name: "hhb changenick",
     version_added: "2.0",
     commands_regex: "(change|)nick(name|)",
     supported_platforms: ["discord"],

@@ -10,7 +10,9 @@ module.exports = {
     supported_platforms: ["twitch", "discord"],
     invocation: async (platform, channel, tags, message) => {
         console.log(parent.vars.bot_enabled)
-        var return_message = parent.vars.bot_enabled ? `I'm hannahbot, use "!hhb help" for a list of commands.`: `I'm hannahbot. I am currently in maintainance, please bear with me.`
+        var command_args = message.split(/[\s]+/);
+        
+        var return_message = parent.vars.bot_enabled ? `I'm hannahbot, use "${command_args[0]} help" for a list of commands.`: `I'm hannahbot. I am currently in maintainance, please bear with me.`
         
         if(platform === "twitch"){
             parent.functions.twitch_clientsay(channel, `Hi @${tags.username}! ` + return_message + " peepoHappy ");
