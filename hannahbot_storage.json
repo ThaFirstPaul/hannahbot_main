@@ -1,0 +1,130 @@
+{
+    "vars": {
+        "test_reply": "test peepoHappy ",
+        "enable_leds": false,
+        "reminder_id": 772
+    },
+    "channels": [
+        "#example1",
+        "#example2"
+    ],
+    "commands": {
+        "command_template": {
+            "enabled": false
+        },
+        "compliment": {
+            "enabled": false
+        },
+        "definition": {
+            "enabled": true
+        },
+        "hhb": {
+            "enabled": true
+        },
+        "indev": {
+            "enabled": true
+        },
+        "info": {
+            "enabled": true
+        },
+        "modules": {
+            "enabled": true
+        },
+        "widehardo": {
+            "enabled": true
+        },
+        "commands": {
+            "enabled": true
+        },
+        "channels": {
+            "enabled": true
+        },
+        "messageuuid": {
+            "enabled": true
+        },
+        "mycolor": {
+            "enabled": true
+        },
+        "test": {
+            "enabled": true
+        },
+        "changecolor": {
+            "enabled": true
+        },
+        "reminders": {
+            "enabled": true
+        },
+        "changenick": {
+            "enabled": true
+        },
+        "playsong": {
+            "enabled": true
+        },
+        "compliment_weird": {
+            "enabled": true
+        },
+        "joke": {
+            "enabled": true
+        },
+        "skipsong": {
+            "enabled": true
+        },
+        "hug": {
+            "enabled": true
+        },
+        "cutepic": {
+            "enabled": true
+        },
+        "german": {
+            "enabled": true
+        },
+        "wordle": {
+            "enabled": true
+        },
+        "disable": {
+            "enabled": true
+        },
+        "spotify": {
+            "enabled": true
+        },
+        "hunt": {
+            "enabled": true
+        }
+    },
+    "pings": {},
+    "telegram": {},
+    "permissions": {
+        "everyone": [
+            "hhb.channels.list.*",
+            "hhb.help.*",
+            "hhb.mycolor.*",
+            "hhb.perms.check.*",
+            "hhb.perms.mine.*",
+            "hhb.pings.add.*",
+            "hhb.pings.auth.*",
+            "hhb.pings.clear.*",
+            "hhb.pings.disable.*",
+            "hhb.pings.enable.*",
+            "hhb.pings.list.*",
+            "hhb.pings.multi.*",
+            "hhb.pings.remove.*",
+            "hhb.pings.setup.*",
+            "hhb.pings.test.*",
+            "hhb.remind.*",
+            "hhb.reminders.list.*",
+            "hhb.reminders.delete.*",
+            "hhb.reportbug.*",
+            "hhb.status.*",
+            "other.led.*",
+            "other.vanish.*"
+        ],
+        "paulitio": [
+            "hhb.*",
+            "other.*"
+        ]
+    },
+    "reminders": [],
+    "led_colors": {},
+    "last_command": {},
+    "version": "2.1"
+}
