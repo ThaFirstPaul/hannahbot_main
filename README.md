@@ -1,16 +1,15 @@
 # hannahbot_main
 ![hannah_image1 (1)](https://github.com/ThaFirstPaul/hannahbot_main/assets/34832378/c0b24833-4aa3-4275-a518-c83f15976f5b)
-hannahbot is the leading bot in its class. That being the class of being donk.
+**hannahbot is the leading bot in its class. That being the class of being donk.**
 
-Many features are included by default, and the bot is easily customisable with a little programming. The default commands can be found listed here:\
-https://thafirstpaul.github.io/hannahbot_web/#commands
+Many features are included by default, and the bot is easily customisable with a little programming. The default commands can be found listed here: https://thafirstpaul.github.io/hannahbot_web/#commands
 
 # Installation 
 Download and install node:
 https://github.com/nodejs/node#download
 
-Install the requirements:
-`npm install color-string dotenv reflect-metadata tmi.js xmlhttprequest`
+Download the latest release of hannahbot:
+[Hannahbot Releases](https://github.com/ThaFirstPaul/hannahbot_main/releases/latest)
 
 # Configuration
 Apply the correct auth-tokens:
@@ -28,3 +27,6 @@ Apply the correct auth-tokens:
 # Issues
 Please report issues to me at:\
 https://github.com/ThaFirstPaul/hannahbot_main/issues
+
+You can run hannahbot with debug enabled:
+`node main.js --fulldebug`
