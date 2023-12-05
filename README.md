@@ -1,7 +1,8 @@
 # hannahbot_main
 ![hannah_image1 (1)](https://github.com/ThaFirstPaul/hannahbot_main/assets/34832378/c0b24833-4aa3-4275-a518-c83f15976f5b)
-hannahbot is the leading bot in its class. That being the class of being donk.\
-Many features are included by default, and the bot is easily customisable with a little programming. The default commands are listed here:\
+hannahbot is the leading bot in its class. That being the class of being donk.
+
+Many features are included by default, and the bot is easily customisable with a little programming. The default commands can be found listed here:\
 https://thafirstpaul.github.io/hannahbot_web/#commands
 
 # Installation 
