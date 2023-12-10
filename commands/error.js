@@ -1,29 +1,25 @@
-// ./commands/test.js
+// ./commands/error.js
 // ========
 
 var parent = require.main.exports;
 
 module.exports = {
-    name: "hhb test",
-    version_added: "2.0",
-    commands_regex: "modcheck|pausechamp|test|dinkdonk|check|👋",
+    name: "hhb error",
+    version_added: "2.2",
+    commands_regex: "(test)?error",
     supported_platforms: ["twitch", "discord", "twitch_whisper"],
     invocation: async (platform, channel, tags, message) => {
 
         switch (platform) {
             case "twitch":
-                if (!parent.functions.hasPerm(channel, tags.username.toLowerCase(), "hhb.admin", false)) { 
-                    parent.functions.twitch_clientsay(channel, `[INFO] @${tags.username} DinkDonk `)
-                    return; 
-                }
+                if (!parent.functions.hasPerm(channel, tags.username.toLowerCase(), "hhb.admin", true)) { return; }
 
-                const command_args = message.split(/[\s]+/);
-                parent.functions.twitch_clientsay(channel, `[ADMIN] @${tags.username} DinkDonk `)
+                throw new Error('Test Error!');
                 
                 return
 
             case "discord":
-                parent.functions.discord_clientsay(tags, `👋`, true)
+                throw new Error('Test Error!');
                 return
 
             case "telegram":

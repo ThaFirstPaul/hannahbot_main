@@ -109,12 +109,11 @@ module.exports = {
                         return
                     }
 
-                    try {
-                        parent.commands[command_name].invocation("twitch", channel, tags, message);
-                    } catch (error) {
+                    parent.commands[command_name].invocation("twitch", channel, tags, message)
+                    .catch((reason) => {
                         parent.functions.twitch_clientsay(channel, `[INFO] @󠀀${tags.username}, that command could not be executed at this time. Sorry. `)
-                        console.log(`[ERROR] could not execute command ${command_name}: ${error}`)
-                    }
+                        console.log(`[ERROR] could not execute command ${command_name}: ${reason} `)
+                    });
                     
                     return;
                 }

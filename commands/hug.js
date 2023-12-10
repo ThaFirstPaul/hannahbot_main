@@ -6,7 +6,7 @@ var parent = require.main.exports;
 module.exports = {
     name: "hhb hug",
     version_added: "2.0",
-    commands_regex: "hug.*( |$)",
+    commands_regex: "hug",
     supported_platforms: ["twitch", "discord"],
     invocation: async (platform, channel, tags, message) => {
 

@@ -19,7 +19,19 @@ module.exports = {
         // initialise the discord hannahbot
         parent.debug ? console.error(`{DISCORD} Hannahbot discord client and queue setting up`) : ""
         parent.debug ? console.error(`{DISCORD} Hannahbot connecting to discord`) : ""
-        const client = new Discord.Client({ intents: [Discord.Intents.FLAGS.GUILDS, Discord.Intents.FLAGS.GUILD_MESSAGES, Discord.Intents.FLAGS.GUILD_VOICE_STATES, Discord.Intents.FLAGS.GUILD_MESSAGE_TYPING, Discord.Intents.FLAGS.DIRECT_MESSAGES, Discord.Intents.FLAGS.DIRECT_MESSAGE_REACTIONS, Discord.Intents.FLAGS.DIRECT_MESSAGE_TYPING] });
+        const client =  (() => {
+            try {
+                const client_ = new Discord.Client({ intents: [Discord.Intents.FLAGS.GUILDS, Discord.Intents.FLAGS.GUILD_MESSAGES, Discord.Intents.FLAGS.GUILD_VOICE_STATES, Discord.Intents.FLAGS.GUILD_MESSAGE_TYPING, Discord.Intents.FLAGS.DIRECT_MESSAGES, Discord.Intents.FLAGS.DIRECT_MESSAGE_REACTIONS, Discord.Intents.FLAGS.DIRECT_MESSAGE_TYPING] });
+                return client_;
+            } catch (error) {
+                return false;
+            }})();
+
+        if (client === false){
+            console.error(`[ERROR] Hannahbot discord client could not be set up: ${error}`);
+            return;
+        }
+
         const queue = new Map();
 
         try {
@@ -74,12 +86,11 @@ module.exports = {
                         return
                     }
 
-                    try {
-                        parent.commands[command_name].invocation("discord", message.channel, message, message.content);
-                    } catch (error) {
+                    parent.commands[command_name].invocation("discord", message.channel, message, message.content)
+                    .catch((error) => {
                         parent.functions.discord_clientsay(message,`that command could not be executed at this time. Sorry. `, true)
                         console.log(`{DISCORD} [ERROR] could not execute command ${command_name}: ${error} ${error.stack}`)
-                    }
+                    });
 
                     return;
                 }
@@ -98,7 +109,12 @@ module.exports = {
         });
         
 
-        client.login(process.env.DISCORD_TOKEN);
+        try {
+            client.login(process.env.DISCORD_TOKEN)
+        } catch (error) {
+            console.error(`[ERROR] Hannahbot discord client login failed: ${error}`);
+            return;
+        }
 
     }
 
