@@ -8,7 +8,7 @@ module.exports = {
     version_added: "2.1",
     commands_regex: "yourm(u|o)m",
     supported_platforms: ["twitch"],
-    invocation: (platform, channel, tags, message) => {
+    invocation: async (platform, channel, tags, message) => {
 
         if (platform === "twitch") {
             parent.functions.twitch_clientsay(channel, ` No your mum, @${tags.username} `);

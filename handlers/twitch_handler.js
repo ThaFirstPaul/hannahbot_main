@@ -71,7 +71,25 @@ module.exports = {
         parent.debug ? console.error(`Hannahbot listening to twitch messages in channels: ${parent.hannahbot_storage["channels"]}`) : ""
         client.on('chat', (channel, tags, message, self) => {
             // if debug is enabled
-            if (parent.debug.usermessages) console.log(`[TW MSG] ${channel} @${tags.username}: ${message}`)
+            if (parent.debug.usermessages) console.log(`[TW MSG] ${channel} @${tags.username}: ${message}`);
+
+            // check if hannahbot is enabled => if not, only check for enable command
+            if (!parent.vars.bot_enabled === true) {
+                // ignore non hannahbot commands:
+                if (!(/^(\!hannahbot|\!?hh?b)( |$)/).test(message.toLowerCase())) return;
+
+                // check for enable command
+                if (!(/^(\!hannahbot|\!?hh?b)[\s]*enable( |$)/).test(message.toLowerCase())) return;
+
+                // check for enable command permissions
+                if (!parent.functions.hasPerm(channel, tags.username.toLowerCase(), "hhb.admin", true, platform="twitch")) { return; }
+
+                // enable hannahbot 
+                parent.functions.twitch_clientsay(channel, `[ADMIN] I have been globally enabled. `);
+                parent.vars.bot_enabled = true;
+                parent.functions.save_hannahbot_storage();
+                return;
+            }
 
             try {
                 // send the recieved message to the ping handler
@@ -94,15 +112,17 @@ module.exports = {
                 return;
             }
 
+            if (parent.debug) console.log(`┌-< ${channel} @${tags.username}: ${message}`);
+
             var commands_obj = Object.entries(parent.commands)
             for (let index = 0; index < commands_obj.length; index++) {
                 const command_module = commands_obj[index][1];
                 const command_name = commands_obj[index][0];
                 
-                parent.debug ? console.log(`Testing for command regex: (${command_module.commands_regex})`) : ""
+                if (parent.debug.regex) console.log(`├- Testing for command regex: (${command_module.commands_regex})`);
 
                 if (new RegExp(`^(\!hannahbot|\!?hh?b) (${command_module.commands_regex})($| )`).test(message.toLowerCase())) {
-                    parent.debug ? console.log(`invoking command: (${command_name})`) : ""
+                    parent.debug ? console.log(`└---> invoking command: (${command_name})`) : ""
 
                     if(!parent.commands[command_name].supported_platforms.includes("twitch")){
                         parent.functions.twitch_clientsay(channel, `[INFO] @󠀀${tags.username}, that command is not available on Twitch. `)
@@ -120,13 +140,8 @@ module.exports = {
                 
             }
 
-            //
-
-            // custom commands
-
-
             // command not found
-            //parent.functions.clientsay()
+            parent.debug ? console.log(`└--->  command not found`) : "";
             parent.functions.twitch_clientsay(channel,
                 `[INFO] @󠀀${tags.username}, that command was not found. For a list of commands, visit: tinyurl.com/545uycyw `)
             
@@ -177,17 +192,6 @@ module.exports = {
                 }
                 
             }
-
-            //
-
-            // custom commands
-
-
-            // command not found
-            //parent.functions.clientsay()
-            // parent.functions.twitch_clientsay(channel,
-            //     `[INFO] @󠀀${tags.username}, that command was not found. For a list of commands, visit: hannahbot.xyz/#commands `)
-            
         });
         return;
 

@@ -345,3 +345,6 @@ hannahbot_storage.json
 .env.test
 ideas.txt
 error.txt
+.env
+.vscode/launch.json
+.vscode/settings.json

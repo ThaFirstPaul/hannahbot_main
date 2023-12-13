@@ -8,7 +8,7 @@ module.exports = {
     version_added: "2.0",
     commands_regex: "(in)?dev",
     supported_platforms: ["twitch", "discord", "telegram"],
-    invocation: (platform, channel, tags, message) => {
+    invocation: async (platform, channel, tags, message) => {
         if (platform === "twitch") {
             parent.functions.twitch_clientsay(channel, `[DEV] This bot is currently in development, please bear with me @${tags.username} `)
             return

@@ -1,8 +1,8 @@
 {
+    "bot_enabled": true,
     "vars": {
         "test_reply": "test peepoHappy ",
-        "enable_leds": false,
-        "reminder_id": 772
+        "reminder_id": 0
     },
     "channels": [
         "#example1",
@@ -126,5 +126,5 @@
     "reminders": [],
     "led_colors": {},
     "last_command": {},
-    "version": "2.1"
+    "version": "2.2"
 }

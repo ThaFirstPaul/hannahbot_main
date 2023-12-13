@@ -27,25 +27,28 @@ module.exports = {
     version_added: "2.0",
     commands_regex: "status|info|i|uptime",
     supported_platforms: ["twitch", "discord"],
-    invocation: (platform, channel, tags, message) => {
-        var is_enabled = "in maintainance";
-        if (parent.hannahbot_storage.vars.bot_enabled === true) is_enabled = "enabled";
+    invocation: async (platform, channel, tags, message) => {
+    
+        return new Promise((resolve, reject) => {
+            var is_enabled = "in maintainance";
+            if (parent.hannahbot_storage.vars.bot_enabled === true) is_enabled = "enabled";
 
-        if (platform === "twitch") {
-            //if (!parent.functions.hasPerm(channel, tags.username.toLowerCase(), "hhb.status", true)) { return; }
-            parent.functions.twitch_clientsay(channel,
-                `[INFO] hannahbot v${parent.hannahbot_storage.version}. - I was born ${parent.functions.proper_date(Date.now() - parent.vars.bot_creation)} ago. 
-            - Currently ${is_enabled} - Uptime: ${parent.functions.proper_date(Date.now() - parent.vars.last_restart)} - RAM Usage: ${get_ram()} FeelsStrongMan `);
-            return;
+            if (platform === "twitch") {
+                //if (!parent.functions.hasPerm(channel, tags.username.toLowerCase(), "hhb.status", true)) { return; }
+                parent.functions.twitch_clientsay(channel,
+                    `[INFO] hannahbot v${parent.hannahbot_storage.version}. - I was born ${parent.functions.proper_date(Date.now() - parent.vars.bot_creation)} ago. 
+                - Currently ${is_enabled} - Uptime: ${parent.functions.proper_date(Date.now() - parent.vars.last_restart)} - RAM Usage: ${get_ram()} FeelsStrongMan `);
+                return;
 
-        }
-        
-        if (platform === "discord") {
-            //if (!parent.functions.hasPerm(tags, tags.author.username.toLowerCase(), "hhb.status", true, "discord")) { return; }
-            tags.reply(
-                `\n[INFO] hannahbot v${parent.hannahbot_storage.version}.\n - I was born ${parent.functions.proper_date(Date.now() - parent.vars.bot_creation)} ago.\n - Currently ${is_enabled}\n - Uptime: ${parent.functions.proper_date(Date.now() - parent.vars.last_restart)}\n - RAM Usage: ${get_ram()} `);
-            return;
+            }
+            
+            if (platform === "discord") {
+                //if (!parent.functions.hasPerm(tags, tags.author.username.toLowerCase(), "hhb.status", true, "discord")) { return; }
+                tags.reply(
+                    `\n[INFO] hannahbot v${parent.hannahbot_storage.version}.\n - I was born ${parent.functions.proper_date(Date.now() - parent.vars.bot_creation)} ago.\n - Currently ${is_enabled}\n - Uptime: ${parent.functions.proper_date(Date.now() - parent.vars.last_restart)}\n - RAM Usage: ${get_ram()} `);
+                return;
 
-        }
-    }
-}
+            }
+        }); // end of promise
+    } // end of invocation
+};

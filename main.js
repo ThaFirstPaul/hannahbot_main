@@ -5,9 +5,10 @@
 // - Variables (hannahbot storage and memory)
 // - Commands  (hannahbot commands)
 // 
-// 
-// 
-// 
+// Starts handlers:
+// - twitch (and whisper) handler
+// - discord handler
+//
 
 // Set debug mode
 var debug = false;
@@ -20,7 +21,8 @@ if (process.argv.includes("--fulldebug")) {
     debug = {
         "usermessages": true,
         "errors": true,
-        "info": true
+        "info": true,
+        "regex": true
     }
     console.log("Enabled debug.")
 }
@@ -48,6 +50,8 @@ try {
     console.error(`[Error] Could not import hannahbot storage! ${error}`)
     process.exit(1);
 }
+
+// vars.bot_enabled = hannahbot_storage.vars.bot_enabled
 
 // export all
 module.exports = {
@@ -134,5 +138,4 @@ try {
 
 
 // set window title
-process.title = `Hannahbot v${hannahbot_storage.version}`
-    + (debug ? " (debugging enabled)" : "")
+process.title = `Hannahbot v${hannahbot_storage.version}` + (debug ? " (debugging enabled)" : "");
