@@ -7,6 +7,7 @@ module.exports = {
     name: "hhb changecolor",
     version_added: "2.0",
     commands_regex: "changecolou?r",
+    usage: "changecolor {color}",
     supported_platforms: ["twitch"],
     invocation: async (platform, channel, tags, message) => {
         var command_args;

@@ -7,6 +7,7 @@ module.exports = {
     name: "hhb messageuuid",
     version_added: "2.0",
     commands_regex: "messageu?u?id|m?u?u?id",
+    usage: "messageuuid",
     supported_platforms: ["twitch", "discord"],
     invocation: async (platform, channel, tags, message) => {
 

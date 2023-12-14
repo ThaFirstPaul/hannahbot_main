@@ -7,6 +7,7 @@ module.exports = {
     name: "hhb error",
     version_added: "2.2",
     commands_regex: "(test)?error",
+    usage: "error",
     supported_platforms: ["twitch", "discord", "twitch_whisper"],
     invocation: async (platform, channel, tags, message) => {
 

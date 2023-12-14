@@ -17,6 +17,7 @@ module.exports = {
     name: "hhb play",
     version_added: "2.0",
     commands_regex: "songs?[\s]*play|play[\s]*songs?|play",
+    usage: "play",
     supported_platforms: ["twitch", "discord"],
     invocation: async (platform, channel, tags, message) => {
 

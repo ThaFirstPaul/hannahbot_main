@@ -7,6 +7,7 @@ module.exports = {
     name: "hhb test",
     version_added: "2.0",
     commands_regex: "modcheck|pausechamp|test|dinkdonk|check|👋",
+    usage: "test",
     supported_platforms: ["twitch", "discord", "twitch_whisper"],
     invocation: async (platform, channel, tags, message) => {
 

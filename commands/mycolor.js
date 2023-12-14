@@ -9,6 +9,7 @@ module.exports = {
     name: "hhb mycolor",
     version_added: "2.0",
     commands_regex: "mycolou?r|mycol|colou?r",
+    usage: "mycolor",
     supported_platforms: ["twitch"],
     invocation: async (platform, channel, tags, message) => {
 

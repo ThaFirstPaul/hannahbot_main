@@ -7,6 +7,7 @@ module.exports = {
     name: "hhb widehardo",
     version_added: "2.0",
     commands_regex: "widehardo.*",
+    usage: "widehardo",
     supported_platforms: ["twitch"],
     invocation: async (platform, channel, tags, message) => {
         var return_message = ` @${tags.username} WideHardo ` 

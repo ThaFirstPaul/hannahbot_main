@@ -7,6 +7,7 @@ module.exports = {
     name: "hhb hug",
     version_added: "2.0",
     commands_regex: "hug",
+    usage: "hug [user]",
     supported_platforms: ["twitch", "discord"],
     invocation: async (platform, channel, tags, message) => {
 

@@ -7,6 +7,7 @@ module.exports = {
     name: "hhb commands",
     version_added: "2.0",
     commands_regex: "comm?|commands?|help|list|\\?",
+    usage: "commands",
     supported_platforms: ["twitch", "discord"],
     invocation: async (platform, channel, tags, message) => {
 

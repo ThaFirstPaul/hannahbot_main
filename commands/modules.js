@@ -35,13 +35,14 @@ function load_module(module) {
 module.exports = {
     name: "hhb modules",
     version_added: "2.1",
-    commands_regex: "modules?",
-    supported_platforms: ["twitch", "whisper"],
+    commands_regex: "(modules?|m)",
+    usage: "module {load|unload|reload} {module}",
+    supported_platforms: ["twitch", "twitch_whisper"],
     invocation: async (platform, channel, tags, message) => {
         if (!parent.functions.hasPerm(channel, tags.username.toLowerCase(), "hhb.admin.reloadmodule", true)) { return; }
 
         switch (platform) {
-            case "whisper":
+            case "twitch_whisper":
                 var clientsay = function(...args){return;}
             case "twitch":
                 if (!clientsay){clientsay = parent.functions.twitch_clientsay;}
@@ -87,6 +88,9 @@ module.exports = {
                     }
 
                     if (!Object.keys(parent.commands).includes(command_args[3].toLowerCase().trim())) {
+                        parent.hannahbot_storage.commands[command_args[3].toLowerCase().trim()].enabled = true;
+                        parent.functions.save_hannahbot_storage();
+
                         load_module(command_args[3].toLowerCase().trim()) ?
                             clientsay(channel, `[ADMIN] Loaded the module: ${command_args[3]} (v${parent.commands[command_args[3].toLowerCase()].version_added}), @${tags.username}`) :
                             clientsay(channel, `[ADMIN] Could not load the module: ${command_args[3]}, @${tags.username}`)
@@ -109,6 +113,9 @@ module.exports = {
                     }
 
                     if (Object.keys(parent.commands).includes(command_args[3].toLowerCase().trim())) {
+                        parent.hannahbot_storage.commands[command_args[3].toLowerCase().trim()].enabled = false;
+                        parent.functions.save_hannahbot_storage();
+
                         unload_module(command_args[3].toLowerCase().trim()) ?
                             clientsay(channel, `[ADMIN] Unoaded the module: ${command_args[3]}, @${tags.username}`) :
                             clientsay(channel, `[ADMIN] Could not unload the module: ${command_args[3]}, @${tags.username}`)

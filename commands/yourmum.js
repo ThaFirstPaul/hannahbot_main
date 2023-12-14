@@ -7,6 +7,7 @@ module.exports = {
     name: "hhb yourmum",
     version_added: "2.1",
     commands_regex: "yourm(u|o)m",
+    usage: "yourmum",
     supported_platforms: ["twitch"],
     invocation: async (platform, channel, tags, message) => {
 

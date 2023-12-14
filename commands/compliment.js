@@ -7,6 +7,7 @@ module.exports = {
     name: "hhb compliment",
     version_added: "2.0",
     commands_regex: "insult|compliment|admire|bless.*",
+    usage: "compliment [user]",
     supported_platforms: ["twitch", "discord"],
     invocation: async (platform, channel, tags, message) => {
 

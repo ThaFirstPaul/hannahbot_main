@@ -9,6 +9,7 @@ module.exports = {
     name: "hhb say",
     version_added: "2.2",
     commands_regex: "(say|repeat|echo)",
+    usage: "say {message}",
     supported_platforms: ["twitch"],
     invocation: async (platform, channel, tags, message) => {
 

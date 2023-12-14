@@ -7,6 +7,7 @@ module.exports = {
     name: "hhb definition",
     version_added: "2.0",
     commands_regex: "define|whatis|lookup",
+    usage: "define {word}",
     supported_platforms: ['twitch'],
     invocation: async (platform, channel, tags, message) => {
 

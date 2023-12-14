@@ -34,7 +34,7 @@ module.exports = {
         }
 
         
-        // initialise the account hannah_yee5
+        // initialise the main bot account
         parent.debug ? console.error(`Hannahbot twitch clients setting up`) : ""
         client = new tmi.Client({
             options: { debug: true },
@@ -43,13 +43,13 @@ module.exports = {
                 secure: true
             },
             identity: {
-                username: 'hannah_yee5',
+                username: process.env.TWITCH_USERNAME_1,
                 password: process.env.TWITCH_OAUTH_TOKEN_1,
             },
             channels: parent.hannahbot_storage["channels"]
         });
 
-        // initialise the account paulitio
+        // initialise the owner's account 
         OPclient = new tmi.Client({
             options: { debug: false },
             connection: {
@@ -57,10 +57,10 @@ module.exports = {
                 secure: true
             },
             identity: {
-                username: 'paulitio',
-                password: process.env.TWITCH_OAUTH_TOKEN_2,
+                username: process.env.TWITCH_USERNAME_OWNER,
+                password: process.env.TWITCH_OAUTH_TOKEN_OWNER,
             },
-            channels: ['paulitio']
+            channels: [process.env.TWITCH_USERNAME_OWNER]
         });
 
         parent.debug ? console.error(`Hannahbot connecting to twitch`) : ""
@@ -74,7 +74,7 @@ module.exports = {
             if (parent.debug.usermessages) console.log(`[TW MSG] ${channel} @${tags.username}: ${message}`);
 
             // check if hannahbot is enabled => if not, only check for enable command
-            if (!parent.vars.bot_enabled === true) {
+            if (!parent.hannahbot_storage.vars.bot_enabled === true) {
                 // ignore non hannahbot commands:
                 if (!(/^(\!hannahbot|\!?hh?b)( |$)/).test(message.toLowerCase())) return;
 
@@ -86,7 +86,7 @@ module.exports = {
 
                 // enable hannahbot 
                 parent.functions.twitch_clientsay(channel, `[ADMIN] I have been globally enabled. `);
-                parent.vars.bot_enabled = true;
+                parent.hannahbot_storage.vars.bot_enabled = true;
                 parent.functions.save_hannahbot_storage();
                 return;
             }
@@ -129,6 +129,8 @@ module.exports = {
                         return
                     }
 
+                    
+
                     parent.commands[command_name].invocation("twitch", channel, tags, message)
                     .catch((reason) => {
                         parent.functions.twitch_clientsay(channel, `[INFO] @󠀀${tags.username}, that command could not be executed at this time. Sorry. `)
@@ -157,7 +159,7 @@ module.exports = {
 
             if ((/^(\!hannahbot|\!?hh?b)[\s]*$/).test(message.toLowerCase())) {
                 parent.debug ? console.log(`Invoking "im hhb" message: (hhb)`) : ""
-                parent.commands.hhb.invocation("whisper", from, tags, message, client);
+                parent.commands.hhb.invocation("twitch_whisper", from, tags, message, client);
                 return;
             }
 
@@ -175,14 +177,14 @@ module.exports = {
                     
                     parent.debug ? console.log(`invoking command: (${command_name})`) : ""
 
-                    if(!parent.commands[command_name].supported_platforms.includes("whisper")){
+                    if(!parent.commands[command_name].supported_platforms.includes("twitch_whisper")){
                         parent.functions.twitch_whisper(from, `[INFO] Sorry, that command is not available via whispers. `)
                         console.log(`[WARN] command: (${command_name}) does not support twitch_whisper`)
                         return;
                     }
 
                     try {
-                        parent.commands[command_name].invocation("whisper", from, tags, message);
+                        parent.commands[command_name].invocation("twitch_whisper", from, tags, message);
                     } catch (error) {
                         //parent.functions.twitch_clientsay(from, `[INFO] @󠀀${tags.username}, that command could not be executed at this time. Sorry. `)
                         console.log(`[ERROR] could not execute command ${command_name}: ${error}`)

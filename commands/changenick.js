@@ -7,6 +7,7 @@ module.exports = {
     name: "hhb changenick",
     version_added: "2.0",
     commands_regex: "(change|)nick(name|)",
+    usage: "changenick {nickname}",
     supported_platforms: ["discord"],
     invocation: async (platform, channel, tags, message) => {
 

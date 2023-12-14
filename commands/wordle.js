@@ -12,6 +12,7 @@ module.exports = {
     name: "hhb wordle",
     version_added: "2.0",
     commands_regex: "wordle",
+    usage: "wordle",
     supported_platforms: ["twitch"],
     invocation: async (platform, channel, tags, message) => {
         const choices = ["🟩", "⬛", "🟨"];

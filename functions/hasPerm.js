@@ -11,14 +11,14 @@ module.exports = {
 	invocation: (channel, username_or_id, perm, send_missing_perm_message, platform = "twitch", message = null) => {
 
 		if (platform === "twitch") {
-			if (username_or_id.toLowerCase() === "paulitio") {
+			if (username_or_id.toLowerCase() === process.env.TWITCH_USERNAME_OWNER) {
 				return true
 			}
 			parent.functions.twitch_clientsay(channel, `[PERM] You do not have permissions for that @${username_or_id}`)
 			parent.debug ? console.log(`Failed permission check: ${username_or_id} in ${channel}`) : ""
 			return
 		} else if (platform === "discord") {
-			if (username_or_id === "812048357761351741") {
+			if (username_or_id === process.env.DISCORD_USERID) {
 				return true
 			}
 			parent.functions.discord_clientsay(message, `you do not have permissions for that!`, true)

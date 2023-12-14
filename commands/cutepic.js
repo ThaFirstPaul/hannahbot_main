@@ -8,6 +8,7 @@ module.exports = {
     name: "hhb cute",
     version_added: "2.1",
     commands_regex: "(cute ?)?(dog|cat)? ?(pic(ture)?)",
+    usage: "cute [dog|cat]",
     supported_platforms: ["twitch"],
     invocation: async (platform, channel, tags, message) => {
 

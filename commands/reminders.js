@@ -7,6 +7,7 @@ module.exports = {
     name: "hhb reminder",
     version_added: "2.0",
     commands_regex: "(reminders?|rem)",
+    usage: "remind {me|user} in {when} {message}",
     supported_platforms: ["twitch"],
     invocation: async (platform, channel, tags, message) => {
 

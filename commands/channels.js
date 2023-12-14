@@ -7,11 +7,12 @@ module.exports = {
     name: "hhb channels",
     version_added: "2.0",
     commands_regex: "channels?",
-    supported_platforms: ["twitch", "whisper"],
+    usage: "channels [join|leave|list]",
+    supported_platforms: ["twitch", "twitch_whisper"],
     invocation: async (platform, channel, tags, message) => {
 
         switch (platform) {
-            case "whisper":
+            case "twitch_whisper":
                 var clientsay = function(...args){return;}
             case "twitch":
                 if (!clientsay){clientsay = parent.functions.twitch_clientsay;}

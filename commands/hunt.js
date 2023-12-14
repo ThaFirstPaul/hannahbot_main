@@ -7,6 +7,7 @@ module.exports = {
     name: "hhb hunt",
     version_added: "2.1",
     commands_regex: "hunt",
+    usage: "hunt",
     supported_platforms: ["twitch"],
     invocation: async (platform, channel, tags, message) => {
 

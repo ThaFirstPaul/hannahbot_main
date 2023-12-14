@@ -7,6 +7,7 @@ module.exports = {
     name: "hhb indev",
     version_added: "2.0",
     commands_regex: "(in)?dev",
+    usage: "indev",
     supported_platforms: ["twitch", "discord", "telegram"],
     invocation: async (platform, channel, tags, message) => {
         if (platform === "twitch") {

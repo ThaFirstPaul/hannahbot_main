@@ -27,6 +27,14 @@ if (process.argv.includes("--fulldebug")) {
     console.log("Enabled debug.")
 }
 
+if (process.argv.includes("--gen_commands")) {
+    console.log("Will generate commands list.")
+}
+
+if (process.argv.includes("--storage-readonly")) {
+    console.log("Hannahbot-storage is read-only.")
+}
+
 // required main modules
 const fs = require("fs");
 
@@ -38,7 +46,6 @@ var vars = {}
 
 vars.last_restart = Date.now();
 vars.bot_creation = 1638724895000;
-vars.bot_enabled = true;
 
 require('dotenv').config()
 
@@ -51,7 +58,6 @@ try {
     process.exit(1);
 }
 
-// vars.bot_enabled = hannahbot_storage.vars.bot_enabled
 
 // export all
 module.exports = {
@@ -67,10 +73,13 @@ module.exports = {
 fs.readdirSync('./commands').forEach(function (file) {
     try {
         if(!hannahbot_storage.commands.hasOwnProperty(file.split(".")[0])){
-            hannahbot_storage.commands[file.split(".")[0]] = {"enabled":true}
+            hannahbot_storage.commands[file.split(".")[0]] = {"enabled":false}
         } 
         // checks if the module is disabled
-        if (hannahbot_storage.commands[file.split(".")[0]] === false) return
+        if (hannahbot_storage.commands[file.split(".")[0]].enabled === false) {
+            if (debug) { console.log(`Skipped disabled command: (${file}) `) }
+            return
+        }
 
         const module_ = require(`./commands/${file}`);
         commands[file.split(".")[0]] = module_;
@@ -81,12 +90,22 @@ fs.readdirSync('./commands').forEach(function (file) {
     }
 })
 console.log(`Done importing commands`);
-if (debug) { 
-    console.log(`All active commands: `)
-    console.log(commands)
+
+if (process.argv.includes("--gen_commands")) { 
+    console.log(`Generating json with all active commands. `)
+
+    // Write commands list to ./commands_list.json
+    try {
+        to_write = {commands, created:Date.now(), version:hannahbot_storage.version}
+        fs.writeFileSync('./commands_list.json',
+        JSON.stringify(to_write), 'utf-8')
+        console.log("Created updated commands list");
+    } catch (error) {
+        console.log(`[WARN] Failed to update commands list: ${error}`);
+    }
 }
 
-
+console.log(``)
 // import all internally needed functions
 fs.readdirSync('./functions').forEach(function (file) {
     try {
@@ -122,6 +141,10 @@ if (debug) { console.log(`All active handlers: ${Object.keys(handlers)}\n`) }
 functions.save_hannahbot_storage()
 
 // Start the handlers for twitch, discord, telegram, and web
+if (process.argv.includes("--no-handlers")) { 
+    console.log(`Ending here, as no handlers have been enabled. `)
+    process.exit(1);
+}
 
 try {
     handlers.twitch_handler.start()
