@@ -5,6 +5,7 @@ var parent = require.main.exports;
 
 module.exports = {
     name: "hhb german",
+    description: "Replies with a german phrase.",
     version_added: "2.0",
     commands_regex: "(german|deutsch).*",
     usage: "german",

@@ -5,6 +5,7 @@ var parent = require.main.exports;
 
 module.exports = {
     name: "hhb definition",
+    description: "Looks up the definition of the given word.",
     version_added: "2.0",
     commands_regex: "define|whatis|lookup",
     usage: "define {word}",

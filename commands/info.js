@@ -5,15 +5,14 @@ var parent = require.main.exports;
 
 module.exports = {
     name: "hhb info",
+    description: "Responds with the Version, Age, Uptime and RAM usage.",
     version_added: "2.0",
-    commands_regex: "status|info|i|uptime",
+    commands_regex: "(status|info|i|uptime)s?",
     usage: "info",
     supported_platforms: ["twitch", "discord"],
     invocation: async (platform, channel, tags, message) => {
     
         return new Promise((resolve, reject) => {
-            var is_enabled = "in maintainance";
-            if (parent.hannahbot_storage.vars.bot_enabled === true) is_enabled = "enabled";
 
             if (platform === "twitch") {
                 //if (!parent.functions.hasPerm(channel, tags.username.toLowerCase(), "hhb.status", true)) { return; }
@@ -33,7 +32,7 @@ module.exports = {
             }
         }); // end of promise
     } // end of invocation
-};
+}; // End of exports
 
 
 function get_ram() {

@@ -7,34 +7,39 @@ var parent = require.main.exports;
 
 module.exports = {
     name: "hhb say",
+    description: "Repeats the line given.",
     version_added: "2.2",
     commands_regex: "(say|repeat|echo)",
     usage: "say {message}",
     supported_platforms: ["twitch"],
     invocation: async (platform, channel, tags, message) => {
 
-        if (platform === "twitch") {
-            if (!parent.functions.hasPerm(channel, tags.username.toLowerCase(), "hhb.say", true)) { return; }
-            var command_args = message.split(/[\s]+/);
+        return new Promise((resolve, reject) => {
 
-            var to_say = command_args.slice(2);
+            if (platform === "twitch") {
+                if (!parent.functions.hasPerm(channel, tags.username.toLowerCase(), "hhb.say", true)) { return; }
+                var command_args = message.split(/[\s]+/);
 
-            if ((/say /).test(to_say.join(" "))) {
-                parent.functions.twitch_clientsay(channel,  `@${tags.username}, No u say that. peepoHappy `);
-                return;
-            }
+                var to_say = command_args.slice(2);
 
-            if ((/(\/|\\)/).test(message.toLowerCase())) {
-                parent.functions.twitch_clientsay(channel,  `@${tags.username}, I'm not saying that. peepoHappy `);
-                return;
-            }
+                if ((/say /).test(to_say.join(" "))) {
+                    parent.functions.twitch_clientsay(channel,  `@${tags.username}, No u say that. peepoHappy `);
+                    return;
+                }
 
-            parent.functions.twitch_clientsay(channel, to_say.join(" ")); 
-            
+                if ((/(\/|\\)/).test(message.toLowerCase())) {
+                    parent.functions.twitch_clientsay(channel,  `@${tags.username}, I'm not saying that. peepoHappy `);
+                    return;
+                }
+
+                parent.functions.twitch_clientsay(channel, to_say.join(" ")); 
                 
 
-            return
 
-        } 
-    }
-}
+                return
+
+            } // end of platform twitch
+        
+        }); // end of invocation promise
+    } // end of invocation
+} // End of exports

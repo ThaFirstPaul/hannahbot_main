@@ -5,6 +5,7 @@ var parent = require.main.exports;
 
 module.exports = {
     name: "hhb channels",
+    description: "View and/or edit the channels hannahbot is in.",
     version_added: "2.0",
     commands_regex: "channels?",
     usage: "channels [join|leave|list]",

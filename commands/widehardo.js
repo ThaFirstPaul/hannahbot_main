@@ -5,6 +5,7 @@ var parent = require.main.exports;
 
 module.exports = {
     name: "hhb widehardo",
+    description: "Replies with a 'WideHardo' emote.",
     version_added: "2.0",
     commands_regex: "widehardo.*",
     usage: "widehardo",

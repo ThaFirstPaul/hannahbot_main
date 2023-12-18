@@ -7,6 +7,7 @@ var parent = require.main.exports;
 
 module.exports = {
     name: "hhb mycolor",
+    description: "Responds with the color of the user who executed this command",
     version_added: "2.0",
     commands_regex: "mycolou?r|mycol|colou?r",
     usage: "mycolor",

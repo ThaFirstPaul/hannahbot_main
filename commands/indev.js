@@ -5,6 +5,7 @@ var parent = require.main.exports;
 
 module.exports = {
     name: "hhb indev",
+    description: "",
     version_added: "2.0",
     commands_regex: "(in)?dev",
     usage: "indev",

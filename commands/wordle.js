@@ -10,6 +10,7 @@ function choose(choices) {
 
 module.exports = {
     name: "hhb wordle",
+    description: "Generates a fake wordle share.",
     version_added: "2.0",
     commands_regex: "wordle",
     usage: "wordle",

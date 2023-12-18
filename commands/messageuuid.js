@@ -5,6 +5,7 @@ var parent = require.main.exports;
 
 module.exports = {
     name: "hhb messageuuid",
+    description: "Responds with the UUID of the message used to execute this command.",
     version_added: "2.0",
     commands_regex: "messageu?u?id|m?u?u?id",
     usage: "messageuuid",

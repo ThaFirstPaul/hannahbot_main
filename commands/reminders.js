@@ -5,6 +5,7 @@ var parent = require.main.exports;
 
 module.exports = {
     name: "hhb reminder",
+    description: "Create reminders for yourself or another person.",
     version_added: "2.0",
     commands_regex: "(reminders?|rem)",
     usage: "remind {me|user} in {when} {message}",

@@ -5,6 +5,7 @@ var parent = require.main.exports;
 
 module.exports = {
     name: "hhb changenick",
+    description: "Change the displayed nickname of hannahbot.",
     version_added: "2.0",
     commands_regex: "(change|)nick(name|)",
     usage: "changenick {nickname}",

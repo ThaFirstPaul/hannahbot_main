@@ -5,6 +5,7 @@ var parent = require.main.exports;
 
 module.exports = {
     name: "hhb hug",
+    description: "Hugs you or another chatter.",
     version_added: "2.0",
     commands_regex: "hug",
     usage: "hug [user]",

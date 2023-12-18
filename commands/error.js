@@ -5,6 +5,7 @@ var parent = require.main.exports;
 
 module.exports = {
     name: "hhb error",
+    description: "Tests the error-handling capabilities of Hannahbot.",
     version_added: "2.2",
     commands_regex: "(test)?error",
     usage: "error",

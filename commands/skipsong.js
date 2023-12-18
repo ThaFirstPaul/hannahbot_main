@@ -17,6 +17,7 @@ parent.vars.songqueue = new Map();
 
 module.exports = {
     name: "hhb play",
+    description: "",
     version_added: "2.0",
     commands_regex: "songs?[\s]*play|play[\s]*songs?|play|skip",
     usage: "play {song}",

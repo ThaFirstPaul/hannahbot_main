@@ -5,6 +5,7 @@ var parent = require.main.exports;
 
 module.exports = {
     name: "hhb changecolor",
+    description: "Changes the colour of hannahbot in chat.",
     version_added: "2.0",
     commands_regex: "changecolou?r",
     usage: "changecolor {color}",

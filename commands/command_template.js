@@ -5,6 +5,7 @@ var parent = require.main.exports;
 
 module.exports = {
     name: "hhb command",
+    description: "Description of the command.",
     version_added: "2.0",
     commands_regex: "otherregex",
     usage: "command {required} [optional]",

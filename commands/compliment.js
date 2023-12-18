@@ -5,6 +5,7 @@ var parent = require.main.exports;
 
 module.exports = {
     name: "hhb compliment",
+    description: "Compliments you or another chatter.",
     version_added: "2.0",
     commands_regex: "insult|compliment|admire|bless.*",
     usage: "compliment [user]",

@@ -8,22 +8,36 @@ module.exports = {
 	name: "hasPerm",
 	version_added: "2.0",
 	module_type: "single",
-	invocation: (channel, username_or_id, perm, send_missing_perm_message, platform = "twitch", message = null) => {
+	invocation: (channel, username_or_id, perm, send_missing_perm_message, platform=null, message = null) => {
 
-		if (platform === "twitch") {
-			if (username_or_id.toLowerCase() === process.env.TWITCH_USERNAME_OWNER) {
-				return true
-			}
-			parent.functions.twitch_clientsay(channel, `[PERM] You do not have permissions for that @${username_or_id}`)
-			parent.debug ? console.log(`Failed permission check: ${username_or_id} in ${channel}`) : ""
-			return
-		} else if (platform === "discord") {
-			if (username_or_id === process.env.DISCORD_USERID) {
-				return true
-			}
-			parent.functions.discord_clientsay(message, `you do not have permissions for that!`, true)
-			parent.debug ? console.log(`{DISCORD} Failed permission check: ${username_or_id} in ${channel.id}`) : ""
-			return
+		if (platform === null){
+			platform = "twitch"
+			console.log(`[WARN] No platform specified when testing perm for: ${perm}`);
+		}
+
+		switch (platform) {
+			case "twitch_whisper":
+			case "twitch":
+				if (username_or_id.toLowerCase() === process.env.TWITCH_USERNAME_OWNER) {
+					return true;
+				}
+
+				if (platform === "twitch"){
+					parent.functions.twitch_clientsay(channel, `[PERM] You do not have permissions for that @${username_or_id}`);
+				}
+				parent.debug ? console.log(`Failed permission check: ${username_or_id} in ${channel}`) : "";
+				return false
+
+			case "discord":
+				if (username_or_id === process.env.DISCORD_USERID) {
+					return true
+				}
+				parent.functions.discord_clientsay(message, `you do not have permissions for that!`, true)
+				parent.debug ? console.log(`{DISCORD} Failed permission check: ${username_or_id} in ${channel.id}`) : ""
+				return false
+		
+			default:
+				return false;
 		}
 
 		return false

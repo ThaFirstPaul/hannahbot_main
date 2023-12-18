@@ -15,6 +15,7 @@ var parent = require.main.exports;
 
 module.exports = {
     name: "hhb play",
+    description: "",
     version_added: "2.0",
     commands_regex: "songs?[\s]*play|play[\s]*songs?|play",
     usage: "play",

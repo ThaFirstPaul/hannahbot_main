@@ -5,6 +5,7 @@ var parent = require.main.exports;
 
 module.exports = {
     name: "hhb hunt",
+    description: "",
     version_added: "2.1",
     commands_regex: "hunt",
     usage: "hunt",

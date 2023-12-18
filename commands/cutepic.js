@@ -6,6 +6,7 @@ var parent = require.main.exports;
 
 module.exports = {
     name: "hhb cute",
+    description: "Retrieves a picture of a cute dog or cat from the web.",
     version_added: "2.1",
     commands_regex: "(cute ?)?(dog|cat)? ?(pic(ture)?)",
     usage: "cute [dog|cat]",

@@ -7,8 +7,9 @@ var parent = require.main.exports;
 
 module.exports = {
     name: "hhb joke",
+    description: "Retrieves a joke or pun from the web.",
     version_added: "2.1",
-    commands_regex: "(bad|)joke|4head|self destruct",
+    commands_regex: "(bad|)joke|4head|self destruct|lol",
     usage: "joke",
     supported_platforms: ["twitch", "discord"],
     invocation: async (platform, channel, tags, message) => {
