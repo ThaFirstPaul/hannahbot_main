@@ -22,7 +22,7 @@ Apply the correct auth-tokens:
 
 # Running
 - Open Terminal (macos/linux) or CMD (windows)
-- Type `cd ` 
+- Type `cd ` (with a space after cd)
 - Drag (or copy and paste the path of) the folder where hannahbot is saved into the command line. Hit Enter.
 - Run `node main.js`
 
